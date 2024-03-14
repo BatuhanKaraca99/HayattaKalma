@@ -24,6 +24,8 @@ public class PlayerScript : MonoBehaviour
 
         if(direction.magnitude >= 0.1f)
         {
+            float targetAngle = Mathf.Atan2(direction.x,direction.z) * Mathf.Rad2Deg; //Find angle from x/z(horizontal/vertical)
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f); //Apply transform               
             cC.Move(direction * playerSpeed * Time.deltaTime);
         }
     }
