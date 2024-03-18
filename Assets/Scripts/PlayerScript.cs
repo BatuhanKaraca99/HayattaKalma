@@ -12,13 +12,31 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player Animator and Gravity")]
     public CharacterController cC;
+    public float gravity = -9.81f;
 
     [Header("Player Jumping and Velocity")]
     public float turnCalmTime = 0.1f;
     float turnCalmVelocity;
+    public float jumpRange = 1f;
+    Vector3 velocity;
+    public Transform surfaceCheck;
+    bool onSurface;
+    public float surfaceDistance = 0.4f;
+    public LayerMask surfaceMask;
+
 
     private void FixedUpdate()
     {
+        onSurface = Physics.CheckSphere(surfaceCheck.position, surfaceDistance, surfaceMask); //Surface check
+
+        if(onSurface && velocity.y < 0)
+        {
+            velocity.y = - 2f;
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        cC.Move(velocity*Time.deltaTime); // Move character with gravity
+
         playerMove();
     }
 
