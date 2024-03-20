@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -14,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     [Header("Player Animator and Gravity")]
     public CharacterController cC;
     public float gravity = -9.81f;
+    public Animator animator;
 
     [Header("Player Jumping and Velocity")]
     public float turnCalmTime = 0.1f;
@@ -36,7 +38,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         velocity.y += gravity * Time.deltaTime;
-        cC.Move(velocity*Time.deltaTime); // Move character with gravity
+        cC.Move(velocity*Time.fixedDeltaTime); // Move character with gravity
 
         playerMove();
 
@@ -47,13 +49,34 @@ public class PlayerScript : MonoBehaviour
     void playerMove()
     {
         GetAxis(playerSpeed);
+        if (GetAxis(playerSpeed).magnitude >= 0.1f)
+        {
+            animator.SetBool("Idle", false);
+            animator.SetBool("Walk", true);
+            animator.SetBool("Running", false);
+            animator.SetBool("RifleWalk", false);
+            animator.SetBool("IdleAim", false);
+        }
+        else
+        {
+            animator.SetBool("Idle", true);
+            animator.SetBool("Walk", false);
+            animator.SetBool("Running", false);
+        }
     }
 
     void Jump()
     {
         if(Input.GetButtonDown("Jump") && onSurface)
         {
+            animator.SetBool("Idle", false);
+            animator.SetTrigger("Jump");
             velocity.y = Mathf.Sqrt(jumpRange * -2 * gravity);
+        }
+        else
+        {
+            animator.SetBool("Idle", true);
+            animator.ResetTrigger("Jump");
         }
     }
 
@@ -62,10 +85,20 @@ public class PlayerScript : MonoBehaviour
         if(Input.GetButton("Sprint") && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) && onSurface)
         {
             GetAxis(playerSprint);
+            if (GetAxis(playerSpeed).magnitude >= 0.1f)
+            {
+                animator.SetBool("Walk", false);
+                animator.SetBool("Running", true);
+            }
+            else
+            {
+                animator.SetBool("Walk", true);
+                animator.SetBool("Running", false);
+            }
         }
     }
 
-    void GetAxis(float speed)
+    Vector3 GetAxis(float speed)
     {
         float horizontal_axis = Input.GetAxisRaw("Horizontal");
         float vertical_axis = Input.GetAxisRaw("Vertical");
@@ -81,5 +114,6 @@ public class PlayerScript : MonoBehaviour
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward; //get camera angle vector
             cC.Move(moveDirection * speed * Time.deltaTime);
         }
+        return direction;
     }
 }
