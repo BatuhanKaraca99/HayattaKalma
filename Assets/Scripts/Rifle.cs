@@ -10,6 +10,9 @@ public class Rifle : MonoBehaviour
     public float giveDamageOf = 10f; // To Zombie
     public float shootingRange = 100f;
 
+    [Header("Rifle Effects")]
+    public ParticleSystem muzzleSpark;
+
     private void LateUpdate()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -20,6 +23,10 @@ public class Rifle : MonoBehaviour
 
     private void Shoot()
     {
+        if(muzzleSpark != null)
+        {
+            muzzleSpark.Play();
+        }
         RaycastHit hitInfo; // What object ray hits
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, shootingRange))
         {
