@@ -27,6 +27,7 @@ public class Rifle : MonoBehaviour
 
     private void Awake()
     {
+        transform.SetParent(hand);
         presentAmmunition = maximumAmmunition;
     }
 
