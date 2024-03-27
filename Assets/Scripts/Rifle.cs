@@ -12,6 +12,7 @@ public class Rifle : MonoBehaviour
     public float fireCharge = 15f; // 15 times fire
     private float nextTimeToShoot = 0f;
     public PlayerScript player;
+    public Transform hand;
 
     [Header("Rifle Ammunition and Shooting")]
     private int maximumAmmunition = 32;
