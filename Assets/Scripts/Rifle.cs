@@ -9,14 +9,17 @@ public class Rifle : MonoBehaviour
 
     public float giveDamageOf = 10f; // To Zombie
     public float shootingRange = 100f;
+    public float fireCharge = 15f; // 15 times fire
+    private float nextTimeToShoot = 0f;
 
     [Header("Rifle Effects")]
     public ParticleSystem muzzleSpark;
 
-    private void LateUpdate()
+    private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToShoot)
         {
+            nextTimeToShoot = Time.deltaTime + 1f / fireCharge;
             Shoot();
         }
     }
