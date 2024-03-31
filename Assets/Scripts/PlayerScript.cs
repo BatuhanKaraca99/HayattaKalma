@@ -9,6 +9,10 @@ public class PlayerScript : MonoBehaviour
     public float playerSpeed = 1.9f;
     public float playerSprint = 3f;
 
+    [Header("Player Health Things")]
+    private float playerHealth = 120f;
+    public float presentHealth;
+
     [Header("Player Script Cameras")]
     public Transform playerCamera; //Player Camera Reference
 
@@ -30,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        presentHealth = playerHealth;
     }
 
     private void FixedUpdate()
@@ -101,6 +106,22 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+
+    public void playerHitDamage(float takeDamage) //from zombie
+    {
+        presentHealth -= takeDamage;
+
+        if(presentHealth < 0)
+        {
+            PlayerDie();
+        }
+    }
+
+    private void PlayerDie() //death of character
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Object.Destroy(gameObject, 1.0f);
+    } 
 
     Vector3 GetAxis(float speed)
     {
