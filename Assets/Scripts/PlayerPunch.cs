@@ -19,10 +19,15 @@ public class PlayerPunch : MonoBehaviour
             Debug.Log(hitInfo.transform.name);
 
             ObjectToHit objectToHit = hitInfo.transform.GetComponent<ObjectToHit>();
+            Zombie1 zombie1 = hitInfo.transform.GetComponent<Zombie1>();
 
             if(objectToHit != null)
             {
                 objectToHit.ObjectHitDamage(giveDamageOf);
+            }
+            else if (zombie1 != null)
+            {
+                zombie1.zombieHitDamage(giveDamageOf);
             }
         }
     }
