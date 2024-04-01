@@ -98,7 +98,7 @@ public class Zombie1 : MonoBehaviour
                     playerBody.playerHitDamage(giveDamage);
                 }
 
-                zombieAnimationControl(true, false, false, false);
+                zombieAnimationControl(false, false, true, false);
             }
 
             previouslyAttack = true;
