@@ -39,6 +39,11 @@ public class VehicleController : MonoBehaviour
     public GameObject ThirdPersonCanvas;
     public GameObject PlayerCharacter;
 
+    [Header("Vehicle Hit Var")]
+    public Camera cam;
+    public float hitRange = 2f;
+    private float giveDamageOf = 100f;
+
     private void Update()
     {
         // car player distance
@@ -64,6 +69,7 @@ public class VehicleController : MonoBehaviour
             MoveVehicle();
             VehicleSteering();
             ApplyBrakes();
+            HitZombies();
         }
 
         else if(isOpened == false)
@@ -130,5 +136,30 @@ public class VehicleController : MonoBehaviour
         backRightWheelCollider.brakeTorque = presentBreakForce;
         backLeftWheelCollider.brakeTorque = presentBreakForce;
 
+    }
+
+    void HitZombies()
+    {
+        RaycastHit hitInfo;
+
+        if(Physics.Raycast(cam.transform.position,cam.transform.forward, out hitInfo, hitRange))
+        {
+            Debug.Log(hitInfo.transform.name);
+
+            Zombie1 zombie1 = hitInfo.transform.GetComponent<Zombie1>();
+            Zombie2 zombie2 = hitInfo.transform.GetComponent<Zombie2>();
+
+            if(zombie1 != null)
+            {
+                zombie1.zombieHitDamage(giveDamageOf);
+                zombie1.GetComponent<CapsuleCollider>().enabled = false; //disable zombie's collider when hit
+            }
+            
+            else if(zombie2 != null)
+            {
+                zombie2.zombieHitDamage(giveDamageOf);
+                zombie2.GetComponent<CapsuleCollider>().enabled = false;
+            }
+        }
     }
 }
