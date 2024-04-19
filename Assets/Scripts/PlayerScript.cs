@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     [Header("Player Health Things")]
     private float playerHealth = 120f;
     public float presentHealth;
+    public GameObject playerDamage;
 
     [Header("Player Script Cameras")]
     public Transform playerCamera; //Player Camera Reference
@@ -110,6 +111,7 @@ public class PlayerScript : MonoBehaviour
     public void playerHitDamage(float takeDamage) //from zombie
     {
         presentHealth -= takeDamage;
+        StartCoroutine(PlayerDamage());
 
         if(presentHealth < 0)
         {
@@ -122,6 +124,13 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Object.Destroy(gameObject, 1.0f);
     } 
+
+    IEnumerator PlayerDamage()
+    {
+        playerDamage.SetActive(true);
+        yield return new WaitForSeconds(0.8f);
+        playerDamage.SetActive(false);
+    }
 
     Vector3 GetAxis(float speed)
     {
