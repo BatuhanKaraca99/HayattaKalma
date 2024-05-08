@@ -135,6 +135,7 @@ public class Zombie1 : MonoBehaviour
         playerInattackingRadius = false;
         playerInvisionRadius = false;
         Object.Destroy(gameObject,5.0f);
+        Object.Destroy(healthBar, 0.01f);
     }
 
     private void zombieAnimationControl(bool walking,bool running,bool attacking,bool died)

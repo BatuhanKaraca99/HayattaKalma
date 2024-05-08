@@ -123,6 +123,7 @@ public class Zombie2 : MonoBehaviour
         playerInattackingRadius = false;
         playerInvisionRadius = false;
         Object.Destroy(gameObject, 5.0f);
+        Object.Destroy(healthBar, 0.01f);
     }
 
 }

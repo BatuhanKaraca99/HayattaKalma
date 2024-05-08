@@ -143,7 +143,7 @@ public class PlayerScript : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontal_axis, 0f, vertical_axis).normalized;
 
-        if (direction.magnitude >= 0.1f)
+        if (direction.magnitude >= 0.01f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y; //Find angle from x/z(horizontal/vertical) and rotation of camera
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity, turnCalmTime); //Gradually rotation
