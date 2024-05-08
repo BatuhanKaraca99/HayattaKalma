@@ -25,7 +25,7 @@ public class Zombie1 : MonoBehaviour
     float walkingPointRadius = 2f;
 
     [Header("Zombie Attacking Variables")]
-    public float timeBetweenAttack = 1f;
+    public float timeBetweenAttack = 1.5f;
     bool previouslyAttack = false;
 
     [Header("Zombie Animation")]

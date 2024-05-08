@@ -2370,7 +2370,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   zombieSpeed: 4
-  timeBetweenAttack: 2.62
+  timeBetweenAttack: 1.5
   anim: {fileID: 1390291427892222868}
   visionRadius: 15
   attackingRadius: 0.7

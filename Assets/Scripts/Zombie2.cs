@@ -22,7 +22,7 @@ public class Zombie2 : MonoBehaviour
     public float zombieSpeed = 4f;
 
     [Header("Zombie Attacking Variables")]
-    public float timeBetweenAttack = 1f;
+    public float timeBetweenAttack = 1.5f;
     bool previouslyAttack = false;
 
     [Header("Zombie Animation")]
