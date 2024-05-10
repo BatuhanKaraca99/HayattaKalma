@@ -17,7 +17,7 @@ public class Rifle : MonoBehaviour
 
     [Header("Rifle Ammunition and Shooting")]
     private int maximumAmmunition = 32;
-    public int mag = 10; //magazines
+    public int mag = 50; //magazines
     private int presentAmmunition;
     public float reloadingTime = 1.3f;
     private bool setReloading = false;
@@ -36,7 +36,21 @@ public class Rifle : MonoBehaviour
     private void Update()
     {
         if (setReloading)
+        {
+            if (Input.GetButton("Fire1") || Input.GetButton("Fire2") || (Input.GetButton("Fire1") && Input.GetButton("Fire2")))
+            {
+                animator.SetBool("Fire", false);
+                animator.SetBool("RifleWalk", false);
+                animator.SetBool("FireWalk", false);
+                AmmoCount.occurrence.UpdateAmmoText(presentAmmunition);
+                AmmoCount.occurrence.UpdateMagText(mag);
+            }
+            animator.SetBool("Walk", false);
+            animator.SetBool("Running", false);
+            animator.SetBool("RifleAim", false);
+            animator.SetBool("IdleAim", false);
             return;
+        }
 
         if(presentAmmunition <= 0 )
         {
@@ -51,12 +65,13 @@ public class Rifle : MonoBehaviour
             nextTimeToShoot = Time.deltaTime + 1f / fireCharge;
             Shoot();
         }
-        else if(Input.GetButton("Fire1") && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) //if we fire and walk
+        else if(Input.GetButton("Fire1") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ) //if we fire and walk
         {
             animator.SetBool("Idle", false);
             animator.SetBool("FireWalk", true);
+            animator.SetBool("Walk", false);
         }
-        else if(Input.GetButton("Fire2") && Input.GetButton("Fire1")) //fire and aiming
+        else if( Input.GetButton("Fire2") && Input.GetButton("Fire1") || Input.GetButton("Fire2") && ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))) ) //fire and aiming
         {
             animator.SetBool("Idle", false);
             animator.SetBool("IdleAim", true);
@@ -69,6 +84,18 @@ public class Rifle : MonoBehaviour
             animator.SetBool("Fire", false);
             animator.SetBool("Idle", true);
             animator.SetBool("FireWalk", false);
+            if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ||
+               (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) ||
+               (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) ||
+               (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)))
+            {
+                animator.SetBool("Walk", true);
+                if (Input.GetButton("Sprint"))
+                {
+                    animator.SetBool("Walk", false);
+                    animator.SetBool("Running", true);
+                }
+            }
         }
     }
 
@@ -89,6 +116,8 @@ public class Rifle : MonoBehaviour
         }
 
         //updating the UI
+        AmmoCount.occurrence.UpdateAmmoText(presentAmmunition);
+        AmmoCount.occurrence.UpdateMagText(mag);
 
 
         if(muzzleSpark != null)
@@ -130,6 +159,7 @@ public class Rifle : MonoBehaviour
         setReloading = true;
         Debug.Log("Reloading...");
         animator.SetBool("Reloading", true);
+        animator.SetBool("Fire", false);
         //play reload sound
         yield return new WaitForSeconds(reloadingTime);
         animator.SetBool("Reloading", false);

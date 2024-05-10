@@ -15,7 +15,7 @@ public class SwitchCamera : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButton("Fire2") && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if(Input.GetButton("Fire2") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) )
         {
             AimAnimation(true);
         }
@@ -28,6 +28,8 @@ public class SwitchCamera : MonoBehaviour
             animator.SetBool("Idle", true);
             animator.SetBool("IdleAim", false);
             animator.SetBool("RifleWalk", false);
+            animator.SetBool("FireWalk", false);
+            animator.SetBool("Walk", false);
 
             ThirdPersonCam.SetActive(true);
             ThirdPersonCanvas.SetActive(true);

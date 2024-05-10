@@ -8,6 +8,8 @@ public class RiflePickup : MonoBehaviour
     public GameObject PlayerRifle;
     public GameObject PickupRifle;
     public PlayerPunch playerPunch;
+    private int maximumAmmunition = 32;
+    public int mag = 50;
 
     [Header("Rifle Assign Things")]
     public PlayerScript player;
@@ -37,6 +39,10 @@ public class RiflePickup : MonoBehaviour
         {
             animator.SetBool("Punch", false);
             animator.SetBool("Idle", true);
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                animator.SetBool("Idle", false);
+            }
         }
 
         if(Vector3.Distance(transform.position, player.transform.position) < radius)
@@ -45,6 +51,9 @@ public class RiflePickup : MonoBehaviour
             {
                 PlayerRifle.SetActive(true);
                 PickupRifle.SetActive(false);
+                //UI
+                AmmoCount.occurrence.UpdateAmmoText(maximumAmmunition);
+                AmmoCount.occurrence.UpdateMagText(mag);
                 //sound
 
                 //objective completed
