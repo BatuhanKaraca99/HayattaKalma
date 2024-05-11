@@ -33,15 +33,20 @@ public class RiflePickup : MonoBehaviour
             nextTimeToPunch = Time.deltaTime + 1F / punchCharge;
 
             playerPunch.Punch();
+            player.velocity = Vector3.zero;
+            player.playerSpeed = 0;
+            player.playerSprint = 0;
         }
 
         else
         {
             animator.SetBool("Punch", false);
             animator.SetBool("Idle", true);
-            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
                 animator.SetBool("Idle", false);
+                player.playerSpeed = 1.9f;
+                player.playerSprint = 3f;
             }
         }
 

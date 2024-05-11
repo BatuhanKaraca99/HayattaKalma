@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player Script Cameras")]
     public Transform playerCamera; //Player Camera Reference
+    public GameObject EndGameMenuUI; //Menu Reference
 
     [Header("Player Animator and Gravity")]
     public CharacterController cC;
@@ -27,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     public float turnCalmTime = 0.1f;
     float turnCalmVelocity;
     public float jumpRange = 1f;
-    Vector3 velocity;
+    public Vector3 velocity;
     public Transform surfaceCheck;
     bool onSurface;
     public float surfaceDistance = 0.4f;
@@ -127,6 +128,9 @@ public class PlayerScript : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Object.Destroy(gameObject, 1.0f);
+        playerDamage.gameObject.SetActive(false);
+        EndGameMenuUI.SetActive(true);
+        Time.timeScale = 0f;
     } 
 
     IEnumerator PlayerDamage()
@@ -148,10 +152,10 @@ public class PlayerScript : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y; //Find angle from x/z(horizontal/vertical) and rotation of camera
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity, turnCalmTime); //Gradually rotation
             transform.rotation = Quaternion.Euler(0f, angle, 0f); //Apply transform
-                                                                  //
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward; //get camera angle vector
             cC.Move(moveDirection * speed * Time.deltaTime);
         }
         return direction;
     }
+
 }

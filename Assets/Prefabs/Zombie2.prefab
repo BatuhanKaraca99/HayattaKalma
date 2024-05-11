@@ -1475,7 +1475,7 @@ MonoBehaviour:
   timeBetweenAttack: 1.5
   anim: {fileID: 1220348022077508251}
   visionRadius: 100
-  attackingRadius: 0.9
+  attackingRadius: 0.7
   playerInvisionRadius: 0
   playerInattackingRadius: 0
 --- !u!195 &7941350738729536832
