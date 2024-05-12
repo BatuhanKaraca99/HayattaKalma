@@ -17,6 +17,7 @@ public class Zombie1 : MonoBehaviour
     public Camera AttackingRaycastArea;
     public Transform playerBody;
     public LayerMask PlayerLayer;
+    public CapsuleCollider capsulecol;
 
     [Header("Zombie Guarding Variables")]
     public GameObject[] walkPoints;
@@ -42,6 +43,7 @@ public class Zombie1 : MonoBehaviour
         presentHealth = zombieHealth;
         healthBar.GiveFullHealth(presentHealth);
         zombieAgent = GetComponent<NavMeshAgent>();
+        capsulecol = GetComponent<CapsuleCollider>();
     }
 
     private void Update()
@@ -134,6 +136,8 @@ public class Zombie1 : MonoBehaviour
         visionRadius = 0f;
         playerInattackingRadius = false;
         playerInvisionRadius = false;
+        capsulecol.radius = 0f;
+        capsulecol.height = 0f;
         Object.Destroy(gameObject,5.0f);
         Object.Destroy(healthBar, 0.01f);
     }

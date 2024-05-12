@@ -152,12 +152,16 @@ public class VehicleController : MonoBehaviour
             if(zombie1 != null)
             {
                 zombie1.zombieHitDamage(giveDamageOf);
+                zombie1.capsulecol.radius = 0f;
+                zombie1.capsulecol.height = 0f;
                 zombie1.GetComponent<CapsuleCollider>().enabled = false; //disable zombie's collider when hit
             }
             
             else if(zombie2 != null)
             {
                 zombie2.zombieHitDamage(giveDamageOf);
+                zombie2.capsulecol.radius = 0f;
+                zombie2.capsulecol.height = 0f;
                 zombie2.GetComponent<CapsuleCollider>().enabled = false;
             }
         }

@@ -17,6 +17,7 @@ public class Zombie2 : MonoBehaviour
     public Camera AttackingRaycastArea;
     public Transform playerBody;
     public LayerMask PlayerLayer;
+    public CapsuleCollider capsulecol;
 
     [Header("Zombie Standing Variables")]
     public float zombieSpeed = 4f;
@@ -39,6 +40,7 @@ public class Zombie2 : MonoBehaviour
         presentHealth = zombieHealth;
         healthBar.GiveFullHealth(zombieHealth);
         zombieAgent = GetComponent<NavMeshAgent>();
+        capsulecol = GetComponent<CapsuleCollider>();
     }
 
     private void Update()
@@ -122,6 +124,8 @@ public class Zombie2 : MonoBehaviour
         visionRadius = 0f;
         playerInattackingRadius = false;
         playerInvisionRadius = false;
+        capsulecol.radius = 0f;
+        capsulecol.height = 0f;
         Object.Destroy(gameObject, 5.0f);
         Object.Destroy(healthBar, 0.01f);
     }
