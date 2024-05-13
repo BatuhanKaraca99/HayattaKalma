@@ -61,7 +61,6 @@ public class RiflePickup : MonoBehaviour
                 AmmoCount.occurrence.UpdateMagText(mag);
                 //sound
 
-                //objective completed
             }
         }
     }

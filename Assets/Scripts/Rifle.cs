@@ -22,7 +22,6 @@ public class Rifle : MonoBehaviour
     public float reloadingTime = 1.3f;
     private bool setReloading = false;
 
-
     [Header("Rifle Effects")]
     public ParticleSystem muzzleSpark;
     public GameObject goreEffect;
@@ -33,8 +32,14 @@ public class Rifle : MonoBehaviour
         presentAmmunition = maximumAmmunition;
     }
 
+    private void Start()
+    {
+        ObjectivesComplete.occurrence.GetObjectivesDone(true, false);
+    }
+
     private void Update()
     {
+
         if (setReloading)
         {
             if (Input.GetButton("Fire1") || Input.GetButton("Fire2") || (Input.GetButton("Fire1") && Input.GetButton("Fire2")))

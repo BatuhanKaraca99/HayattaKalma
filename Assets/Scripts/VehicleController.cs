@@ -38,6 +38,7 @@ public class VehicleController : MonoBehaviour
     public GameObject ThirdPersonCam;
     public GameObject ThirdPersonCanvas;
     public GameObject PlayerCharacter;
+    public GameObject indicator;
 
     [Header("Vehicle Hit Var")]
     public Camera cam;
@@ -53,6 +54,8 @@ public class VehicleController : MonoBehaviour
             {
                 isOpened = true;
                 radius = 5000f;
+                ObjectivesComplete.occurrence.GetObjectivesDone(true, true, true);
+                indicator.SetActive(false);
             }
             else if (Input.GetKeyDown(KeyCode.G)) //get out from the car
             {
