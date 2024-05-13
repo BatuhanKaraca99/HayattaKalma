@@ -138,6 +138,7 @@ public class Zombie1 : MonoBehaviour
         playerInvisionRadius = false;
         capsulecol.radius = 0f;
         capsulecol.height = 0f;
+        zombieAnimationControl(false,false,false, true);
         Object.Destroy(gameObject,5.0f);
         Object.Destroy(healthBar, 0.01f);
     }

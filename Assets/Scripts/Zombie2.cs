@@ -126,6 +126,11 @@ public class Zombie2 : MonoBehaviour
         playerInvisionRadius = false;
         capsulecol.radius = 0f;
         capsulecol.height = 0f;
+        anim.SetBool("Attacking", false);
+        anim.SetBool("Idle", false);
+        anim.SetBool("Running", false);
+        anim.SetBool("Running", false);
+        anim.SetBool("Died", true);
         Object.Destroy(gameObject, 5.0f);
         Object.Destroy(healthBar, 0.01f);
     }

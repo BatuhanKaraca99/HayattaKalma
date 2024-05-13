@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Rifle : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class Rifle : MonoBehaviour
     [Header("Rifle Effects")]
     public ParticleSystem muzzleSpark;
     public GameObject goreEffect;
+
+    public GameObject AmmoOut;
 
     private void Awake()
     {
@@ -110,6 +113,7 @@ public class Rifle : MonoBehaviour
         if(mag == 0)
         {
             //show ammo out text
+            StartCoroutine(ShowAmmoOut());
             return;
         }
 
@@ -172,5 +176,12 @@ public class Rifle : MonoBehaviour
         player.playerSpeed = 1.9f; //revert
         player.playerSprint = 3; //revert
         setReloading = false; 
+    }
+    
+    IEnumerator ShowAmmoOut()
+    {
+        AmmoOut.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        AmmoOut.SetActive(false);
     }
 }
