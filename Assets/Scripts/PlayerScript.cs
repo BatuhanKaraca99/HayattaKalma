@@ -157,5 +157,4 @@ public class PlayerScript : MonoBehaviour
         }
         return direction;
     }
-
 }
