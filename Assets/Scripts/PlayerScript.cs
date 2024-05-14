@@ -57,6 +57,7 @@ public class PlayerScript : MonoBehaviour
 
         Jump();
         Sprint();
+
     }
 
     void playerMove()
@@ -68,7 +69,7 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool("Walk", true);
             animator.SetBool("Running", false);
             animator.SetBool("RifleWalk", false);
-            animator.SetBool("IdleAim", false);
+            animator.SetBool("IdleAim", false);  
         }
         else
         {
@@ -76,6 +77,7 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool("Walk", false);
             animator.SetBool("Running", false);
         }
+
     }
 
     void Jump()
@@ -157,4 +159,5 @@ public class PlayerScript : MonoBehaviour
         }
         return direction;
     }
+
 }

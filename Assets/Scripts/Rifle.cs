@@ -28,6 +28,7 @@ public class Rifle : MonoBehaviour
     public GameObject goreEffect;
 
     public GameObject AmmoOut;
+    public GunSound gunSound;
 
     private void Awake()
     {
@@ -119,7 +120,14 @@ public class Rifle : MonoBehaviour
 
         presentAmmunition--;
 
-        if(presentAmmunition == 0)
+        bool shooting = false;
+        if (Input.GetButton("Fire1") && !shooting)
+        {
+            gunSound.Fire();
+            shooting = true;
+        }
+
+        if (presentAmmunition == 0)
         {
             mag--;
         }
@@ -170,6 +178,7 @@ public class Rifle : MonoBehaviour
         animator.SetBool("Reloading", true);
         animator.SetBool("Fire", false);
         //play reload sound
+        gunSound.Reload();
         yield return new WaitForSeconds(reloadingTime);
         animator.SetBool("Reloading", false);
         presentAmmunition = maximumAmmunition;

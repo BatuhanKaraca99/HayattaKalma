@@ -4,40 +4,28 @@ using UnityEngine;
 
 public class FootstepSound : MonoBehaviour
 {
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     public AudioClip footstepSound;
 
-    bool walking = true;
-
-    private void Start()
+    public void FixedUpdate()
     {
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    public void Update()
-    {
-        if(Input.GetKey(KeyCode.W)
-          || Input.GetKey(KeyCode.A)
-          || Input.GetKey(KeyCode.S)
-          || Input.GetKey(KeyCode.D))
+        if (Input.GetAxisRaw("Horizontal") >= 0.1f || Input.GetAxis("Vertical") >= 0.1f)
         {
-            audioSource.volume = 0.1f;
-            if(walking == false)
-            {
-                InvokeRepeating("Step", 1f, 1.3f);
-            }
-            walking = true;
-        }
-        else
-        {
-            audioSource.volume = 0f;
-            walking = false;
+            Step();
         }
     }
 
     public void Step()
     {
-        audioSource.PlayOneShot(footstepSound);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = footstepSound;
+            audioSource.Play();
+        }
+        if (audioSource.isPlaying)
+        {
+            audioSource.loop = true;   
+        }
+        audioSource.loop = false;
     }
-
 }
