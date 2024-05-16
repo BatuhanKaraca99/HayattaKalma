@@ -1,5 +1,5 @@
 # Video
-https://youtu.be/yP7kgxA3hWc
+https://www.youtube.com/watch?v=yP7kgxA3hWc
 
 # Images
 ![328897049-04e24761-3942-4f45-9095-d60134f706cb](https://github.com/BatuhanKaraca99/HayattaKalma/assets/47457138/c76224d1-1e1a-4128-8e4f-f8468fc6ac39)
