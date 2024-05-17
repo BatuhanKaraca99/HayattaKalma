@@ -1,5 +1,5 @@
 # Gameplay
-W-A-S-D, F for get in car, G for get out from car
+W-A-S-D,Mouse buttons, F for get in car, G for get out from car
 
 # Video
 https://www.youtube.com/watch?v=yP7kgxA3hWc
